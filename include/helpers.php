@@ -1,32 +1,20 @@
 <?php
-	﻿/*function apologize($message)
+    function connect()
     {
-        // require template
-        require_once("apologize.php");
+        mysql_connect('localhost','jharvard','crimson') or die('Unable to connect to databse');
+        mysql_select_db('jharvard_ladderProject') or die('Unable to select database');
+    }
 
-        // exit immediately since we're apologizing
-        exit;
-    }*/
-	echo "hiiiiiadsfljkadsfljkfsdljk";
-	function connect()
-	{
-		$username="bbclip55_other";
-		$password="starcraft";
-		$database="bbclip55_ladder";
-		
-		$con = mysql_connect("localhost",$username,$password);
-		@mysql_select_db($database) or die( "Unable to select database");
-	}
-	
-	function disconnect()
-	{
-		mysql_close($con);
-	}
-	
-	function query($query)
-	{
-		connect();
-		mysql_query($query, $con);
-		disconnect();
-	}
+    function disconnect()
+    {
+        mysql_close();
+    }
+
+    function query($query)
+    {
+        $result = mysql_query($query);
+        if (!$result)
+            die('There was an error obtaining some information.');
+        return $result; 
+    }
 ?>
