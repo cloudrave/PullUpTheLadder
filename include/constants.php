@@ -1,5 +1,7 @@
 <?
 
-	$NAME_OF_SITE = "StarCraft Central";
+	$NAME_OF_SITE = "SITE NAME HERE";
+    
+    $ROOT_ADDRESS = "~jharvard/AnyLadder";
 
 ?>

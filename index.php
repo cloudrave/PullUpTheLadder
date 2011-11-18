@@ -1,14 +1,16 @@
 <?php
-	require("include/helpers.php");
+	require("include/common.php");
 ?>
 
 <!DOCTYPE html> 
 <head>
 <link rel="stylesheet" type="text/css" href="include/style.css" />
-<title>Leaderboard</title>
+<title><?= $NAME_OF_SITE ?> | Your Leaderboard Solution</title>
 </head>
 
 <body>
+
+<h1><?= $NAME_OF_SITE ?> | Your Leaderboard Solution</h1>
 
 <?php
 	echo connect();
