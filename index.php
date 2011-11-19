@@ -1,5 +1,5 @@
 <?php
-        require("include/common.php");
+    require("include/common.php");
 ?>
 <!DOCTYPE html>
   <head>
@@ -11,40 +11,52 @@
           document.getElementById('registrationForm').submit();
       }
       $(document).ready(function() {
-        
-        // if email field is selected, hide label
+       
+        $('input').addClass('unfocused');
+
+        /* if email field is selected... */
         $('#user_email').focus(function() {
+          // hide label
           $('#user_email_label').hide();
+          // change CSS of field to .focused
+          $('#user_email').removeClass('unfocused');
+          $('#user_email').addClass('focused');
         });
         
-        /* if email field is unselected and field is empty,
-           show label */
+        /* if email field is unselected... */
         $('#user_email').blur(function() {
+          // ... and field is empty, show label
           if ( !$('#user_email').val() )
             $('#user_email_label').show();
+          // change CSS of field to .unfocused
+          $('#user_email').removeClass('focused');
+          $('#user_email').addClass('unfocused');
+
         });
         
-        // if password field is selected, hide label
+        /* if password field is selected... */
         $('#user_password').focus(function() {
+          // hide label
           $('#user_password_label').hide();
+          // change CSS of field to .focused
+          $('#user_password').removeClass('unfocused');
+          $('#user_password').addClass('focused');
         });
         
-        /* if password field is unselected and field
-           is empty, show label */
+        /* if password field is unselected... */
         $('#user_password').blur(function() {
+          // and field is empty, show label
           if ( !$('#user_password').val() )
             $('#user_password_label').show();
+          // change CSS of field to .unfocused
+          $('#user_password').removeClass('focused');
+          $('#user_password').addClass('unfocused');
         });
 
       });
 
     </script>
     <style>
-      td
-      {
-          font-size:1.4em;
-      }
-      
       input
       {
           width:160px;
@@ -52,7 +64,32 @@
           /*height:30px;*/
           outline:none;
           font-size:20px;
+      }
+
+      .focused
+      {
+          background-color:#FFF;
+      }
+
+      .unfocused
+      {
           background-color:#EEE;
+      }
+     
+      label#user_email_label
+      {
+          position:absolute;
+          top:75px;
+          left:-90px;
+          margin-left:50%;
+      }
+
+      label#user_password_label
+      {
+          position:absolute;
+          top:129px;
+          left:-110px;
+          margin-left:50%;
       }
 
       label
@@ -63,15 +100,16 @@
           z-index:1;
           /* top:50px; */
           /* left:50%; */
+          margin:0 auto;
           /*margin:12px 0 0 12px;*/
           color:#AAA;
           font-size:20px;
           font-family:Arial, "Helvetica Neue", Helvetica, sans-serif;
-          /* cursor:pointer; */
+          cursor:text;
           text-align:center;
       }
 
-      .inputWrapper
+      div.inputWrapper
       {
           text-align:center;
           opacity:0.8;
@@ -86,9 +124,9 @@
       <form id = 'registrationForm' action = 'reg.php' method = 'post'>
         <table align = 'center'>
           <tr>
-            <div class = 'inputWrapper' id = 'email_field_wrapper'>
+            <div align = 'center' class = 'inputWrapper' id = 'email_field_wrapper'>
               <label id = 'user_email_label' for = 'user_email'>Email Address</label>
-              <td><input id = 'user_email' type = 'text' name = 'username' /></td>
+              <div><td><input id = 'user_email' type = 'text' name = 'username' /></td></div>
             </div>
           </tr>
           <tr>
