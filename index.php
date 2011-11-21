@@ -11,16 +11,35 @@
           document.getElementById('registrationForm').submit();
       }
       $(document).ready(function() {
-       
+        
+        /* Immediately set initial conditions */
+        // update classes
         $('input').addClass('unfocused');
+        $('#submit_button_image').addClass('default');
+        // clear all fields
+        $('input').val('');
+        $('#user_email_label').css('display','none');
+        $('#user_password_label').css('display','none');
+        $(window).bind('load', function() {
+          $('#mainView').fadeIn(200);
+          $('#user_email_label').delay(100).fadeIn(400);
+          $('#user_password_label').delay(100).fadeIn(400);
+        });
+        // allow user to submit form with enter (maintaining looks of course)
+        $('input').keypress(function(e) {
+          if(e.which == 13) {
+            $(this).blur();
+            $('form').submit();
+          }
+        });
 
-        /* if email field is selected... */
+        /* if field is selected... */
         $('#user_email').focus(function() {
           // hide label
           $('#user_email_label').hide();
           // change CSS of field to .focused
-          $('#user_email').removeClass('unfocused');
-          $('#user_email').addClass('focused');
+          $(this).removeClass('unfocused');
+          $(this).addClass('focused');
         });
         
         /* if email field is unselected... */
@@ -51,6 +70,19 @@
           // change CSS of field to .unfocused
           $('#user_password').removeClass('focused');
           $('#user_password').addClass('unfocused');
+        });
+
+        /*************/
+
+        /* make submit button appetising */
+        $('#submit_button_image').mouseover(function() {
+          $('#submit_button_image').removeClass('default');
+          $('#submit_button_image').addClass('mouseOver');
+        });
+
+        $('#submit_button_image').mouseout(function() {
+          $('#submit_button_image').removeClass('mouseOver');
+          $('#submit_button_image').addClass('default');
         });
 
       });
@@ -115,13 +147,25 @@
           opacity:0.8;
       }
 
+      img.default
+      {
+          opacity:0.8;
+      }
+
+      img.mouseOver
+      {
+          opacity:1.0;
+      }
+
     </style>
     <title><?= $NAME_OF_SITE ?> | Your Leaderboard Solution</title>
   </head>
   <body>
+    <noscript><p style = "font-size:1.4em;"><b>Please enable JavaScript for this site to work properly.</b></p></noscript>
+    <div id = 'mainView' style = "display:none;">
     <h1><?= $NAME_OF_SITE ?> | Your Leaderboard Solution</h1>
     <div class='centeredForm'>
-      <form id = 'registrationForm' action = 'reg.php' method = 'post'>
+      <form id = 'registrationForm' action = 'register2.php' method = 'post'>
         <table align = 'center'>
           <tr>
             <div align = 'center' class = 'inputWrapper' id = 'email_field_wrapper'>
@@ -137,11 +181,15 @@
           </tr>
           <tr>
             <div id = 'submit_button_wrapper'>
-              <td><a href = 'javascript: submitRegForm()'><img src = '/<?= $ROOT_ADDRESS ?>/images/buttons/sign-up.png' /></a></td>
+              <td><a href = 'javascript: submitRegForm()'><img id = 'submit_button_image' src = "<?= getButtonLinkManual('Sign Up', 24, 150, 50) ?>" /></a></td>
             </div>
+          </tr>
+          <tr>
+            <td><a href = 'login'><img src = "<?= getButtonLinkAuto('Login', 12) ?>" /></a></td>
           </tr>
         </table>
       </form>
+    </div>
     </div>
   </body>
 </html>
