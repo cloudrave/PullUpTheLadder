@@ -1,6 +1,6 @@
 <?
 
-	$NAME_OF_SITE = "SITE NAME HERE";
+	$NAME_OF_SITE = "Pull Up the Ladder";
     
     $ROOT_ADDRESS = "~jharvard/AnyLadder";
 

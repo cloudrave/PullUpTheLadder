@@ -5,11 +5,7 @@
   <head>
     <?= defaults(); ?>
     <script type = 'text/javascript'>
-      function submitRegForm()
-      {
-        if (true)
-          document.getElementById('registrationForm').submit();
-      }
+      
       $(document).ready(function() {
         
         /* Immediately set initial conditions */
@@ -18,39 +14,86 @@
         $('#submit_button_image').addClass('default');
         // clear all fields
         $('input').val('');
-        $('#user_email_label').css('display','none');
-        $('#user_password_label').css('display','none');
+        // set labels to not display
+        $('label').css('display','none');
+        // set animation for when page elements are completely loaded
         $(window).bind('load', function() {
           $('#mainView').fadeIn(200);
-          $('#user_email_label').delay(100).fadeIn(400);
-          $('#user_password_label').delay(100).fadeIn(400);
+          $('label').delay(100).fadeIn(400);
         });
-        // allow user to submit form with enter (maintaining looks of course)
+        // allow user to submit form with enter key (maintaining looks of course)
         $('input').keypress(function(e) {
           if(e.which == 13) {
-            $(this).blur();
-            $('form').submit();
+            submitForm();
           }
         });
 
-        /* if field is selected... */
+        confirmationIsShown = false;
+
+        function submitForm()
+        {
+          // validate form
+
+          // determine whether user already exists
+          var username = encodeURIComponent($('#user_email').val());
+          $.getJSON('include/isUser.php?username=' + username)
+            .error(function() { alert('Sorry. There was an error. Please try again.'); })
+            .success(function(data) {
+              $.each(data, function(key, val) {
+                if(key == 'status')
+                {
+                  if (!confirmationIsShown)
+                  {
+                    if (val == true)
+                    {
+                      var newInput = $('<input>').attr('type','hidden').attr('name','typeOfForm').val('login');
+                      $('form').append($(newInput));
+                      $('form').submit();
+                    }
+                    else
+                    {
+                      $('#submit_button_image').removeClass('default').addClass('mouseOver');
+                      $('#passwordConfirmationRow').fadeIn(400);
+                      $('#submit_button_image').slideUp(250);
+                      $('#signup_button_image').slideDown(250);
+                      $('#password_confirmation').focus();
+                      $('#password_confirmation_label').show();
+
+                      confirmationIsShown = true;
+                    }
+                  }
+                  else // if confirmation field is already shown
+                  {
+                    // validate fields
+
+                    // submit form
+                    var newInput = $('<input>').attr('type','hidden').attr('name','typeOfForm').val('register');
+                    $('form').append($(newInput));
+                    $('form').submit();
+                  }
+                }
+            });
+          });
+
+          // submit form
+//          $('form').submit();
+        }
+
+        /* if email field is selected... */
         $('#user_email').focus(function() {
           // hide label
           $('#user_email_label').hide();
           // change CSS of field to .focused
-          $(this).removeClass('unfocused');
-          $(this).addClass('focused');
+          $(this).removeClass('unfocused').addClass('focused');
         });
         
         /* if email field is unselected... */
         $('#user_email').blur(function() {
           // ... and field is empty, show label
-          if ( !$('#user_email').val() )
+          if ( !$(this).val() )
             $('#user_email_label').show();
           // change CSS of field to .unfocused
-          $('#user_email').removeClass('focused');
-          $('#user_email').addClass('unfocused');
-
+          $(this).removeClass('focused').addClass('unfocused');
         });
         
         /* if password field is selected... */
@@ -58,42 +101,82 @@
           // hide label
           $('#user_password_label').hide();
           // change CSS of field to .focused
-          $('#user_password').removeClass('unfocused');
-          $('#user_password').addClass('focused');
+          $(this).removeClass('unfocused').addClass('focused');
         });
         
         /* if password field is unselected... */
         $('#user_password').blur(function() {
           // and field is empty, show label
-          if ( !$('#user_password').val() )
+          if ( !$(this).val() )
             $('#user_password_label').show();
           // change CSS of field to .unfocused
-          $('#user_password').removeClass('focused');
-          $('#user_password').addClass('unfocused');
+          $(this).removeClass('focused').addClass('unfocused');
         });
+
+        /* if password confirmation field is selected... */
+        $('#password_confirmation').focus(function() {
+          // hide label
+          $('#password_confirmation_label').hide();
+          // change CSS of field to .focused
+          $(this).removeClass('unfocused').addClass('focused');
+        });
+        
+        /* if password field is unselected... */
+        $('#password_confirmation').blur(function() {
+          // and field is empty, show label
+          if ( !$(this).val() )
+            $('#password_confirmation_label').show();
+          // change CSS of field to .unfocused
+          $(this).removeClass('focused').addClass('unfocused');
+        });
+
+        /* if password field is changed... */
+        $('#password_confirmation').keypress(function() {
+          $('#password_confirmation_label').hide();
+        });
+
 
         /*************/
 
         /* make submit button appetising */
         $('#submit_button_image').mouseover(function() {
-          $('#submit_button_image').removeClass('default');
-          $('#submit_button_image').addClass('mouseOver');
+          $(this).removeClass('default').addClass('mouseOver');
         });
 
         $('#submit_button_image').mouseout(function() {
-          $('#submit_button_image').removeClass('mouseOver');
-          $('#submit_button_image').addClass('default');
+          $(this).removeClass('mouseOver').addClass('default');
         });
 
       });
 
     </script>
     <style>
+
+      <?php
+        $inputWidth = 170;
+        $labelSpacing = 56;
+        $firstLabelTop = 19;
+        $secondLabelTop = $firstLabelTop + 1*$labelSpacing;
+        $thirdLabelTop = $firstLabelTop + 2*$labelSpacing;
+        $labelXOffset = 106;
+        $tableCellPadding = 3;
+
+        $formLeftOfCenter = $inputWidth/2 + 35;
+      ?>
+    
+      form
+      {
+          position:absolute;
+          margin-left:50%;
+          left:-<?= $formLeftOfCenter ?>px;
+          top:100px;
+      }
+
       input
       {
-          width:160px;
+          width:-<?= $inputWidth ?>px;
           padding:10px;
-          /*height:30px;*/
+          height:25px;
           outline:none;
           font-size:20px;
       }
@@ -107,44 +190,34 @@
       {
           background-color:#EEE;
       }
-     
-      label#user_email_label
-      {
-          position:absolute;
-          top:75px;
-          left:-90px;
-          margin-left:50%;
-      }
-
-      label#user_password_label
-      {
-          position:absolute;
-          top:129px;
-          left:-110px;
-          margin-left:50%;
-      }
-
+ 
       label
       {
-          position:relative;
-          width:150px;
+          margin-left:50%;
+          left:-<?= $labelXOffset ?>px;
+          position:absolute;
           height:40px;
           z-index:1;
-          /* top:50px; */
-          /* left:50%; */
-          margin:0 auto;
-          /*margin:12px 0 0 12px;*/
           color:#AAA;
           font-size:20px;
           font-family:Arial, "Helvetica Neue", Helvetica, sans-serif;
           cursor:text;
-          text-align:center;
+          text-align:left;
       }
 
-      div.inputWrapper
+      label#user_email_label
       {
-          text-align:center;
-          opacity:0.8;
+          top:<?= $firstLabelTop ?>px;
+      }
+
+      label#user_password_label
+      {
+          top:<?= $secondLabelTop ?>px;
+      }
+
+      label#password_confirmation_label
+      {
+          top:<?= $thirdLabelTop ?>px;
       }
 
       img.default
@@ -156,7 +229,6 @@
       {
           opacity:1.0;
       }
-
     </style>
     <title><?= $NAME_OF_SITE ?> | Your Leaderboard Solution</title>
   </head>
@@ -164,28 +236,38 @@
     <noscript><p style = "font-size:1.4em;"><b>Please enable JavaScript for this site to work properly.</b></p></noscript>
     <div id = 'mainView' style = "display:none;">
     <h1><?= $NAME_OF_SITE ?> | Your Leaderboard Solution</h1>
+    <h2>Please enter your information below.</h2>
     <div class='centeredForm'>
-      <form id = 'registrationForm' action = 'register2.php' method = 'post'>
-        <table align = 'center'>
+      <form id = 'registrationForm' action = 'go2.php' method = 'post'>
+        <table id = 'formTable' cellpadding = '<?= $tableCellPadding ?>' align = 'center'>
           <tr>
-            <div align = 'center' class = 'inputWrapper' id = 'email_field_wrapper'>
-              <label id = 'user_email_label' for = 'user_email'>Email Address</label>
-              <div><td><input id = 'user_email' type = 'text' name = 'username' /></td></div>
+            <div class = 'inputWrapper' id = 'email_field_wrapper'>
+              <td>
+                <label id = 'user_email_label' for = 'user_email'>Email Address</label>
+                <input id = 'user_email' type = 'text' name = 'username' />
+              </td>
             </div>
           </tr>
           <tr>
             <div class = 'inputWrapper' id = 'password_field_wrapper'>
-              <label id = 'user_password_label' for = 'user_password'>Password</label>
-              <td><input id = 'user_password' type = 'password' name = 'password' /></td>
+              <td>
+                <label id = 'user_password_label' for = 'user_password'>Password</label>
+                <input id = 'user_password' type = 'password' name = 'password' />
+              </td>
+            </div>
+          </tr>
+          <tr id = 'passwordConfirmationRow' style = 'display:none'>
+            <div class = 'inputWrapper' id = 'password_confirmation_field_wrapper'>
+              <td>
+                <label id = 'password_confirmation_label' for = 'password_confirmation'>Confirm Password</label>
+                <input id = 'password_confirmation' type = 'password' name = 'passwordConfirmation' />
+              </td>
             </div>
           </tr>
           <tr>
             <div id = 'submit_button_wrapper'>
-              <td><a href = 'javascript: submitRegForm()'><img id = 'submit_button_image' src = "<?= getButtonLinkManual('Sign Up', 24, 150, 50) ?>" /></a></td>
+              <td><a href = 'javascript: submitRegForm()'><img class = 'button_image' id = 'submit_button_image' src = "<?= getButtonLinkManual('Go', 24, 150, 50) ?>" /><img style = "display:none;" class = 'button_image' id = 'signup_button_image' src = "<?= getButtonLinkManual('Sign Up', 24, 180, 50) ?>" /></a></td>
             </div>
-          </tr>
-          <tr>
-            <td><a href = 'login'><img src = "<?= getButtonLinkAuto('Login', 12) ?>" /></a></td>
           </tr>
         </table>
       </form>

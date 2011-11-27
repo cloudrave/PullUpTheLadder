@@ -1,6 +1,6 @@
 <?php
     
-    require('include/common.php');
+    require('../include/common.php');
     
     // get username and password from form submission and escape them
     $username = mysqlRealEscapeString($_POST['username']);
@@ -22,5 +22,5 @@
     }
     
     $_SESSION['id'] = $row['id'];
-    header("Location: dashboard");
+    header("Location: ../dashboard");
 ?>
