@@ -1,6 +1,6 @@
 <?php
     
-    include('helpers.php');
+    include('../include/helpers.php');
 
     $result = query("SELECT * FROM users WHERE username = '{$_GET['username']}'");
 

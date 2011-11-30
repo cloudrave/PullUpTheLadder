@@ -1,11 +1,10 @@
 body
 {
-    background-color:#FFF;
     color:#000;
-    font-size:0.7em;
+    font-size:0.8em;
     font-family:"lucida grande",tahoma,verdana,arial,sans-serif;
     cursor:default;
-    background-color:#795;
+    background-color:#047; /* #795, #9B7 might be interesting */
 }
 
 h1
@@ -20,10 +19,45 @@ h2
     text-align:center;
 }
 
-.centeredForm
+.topRight
 {
-    text-align:center;
-    font-size:1.2em;
-    align:center;
+    position:absolute;
+    top:5px;
+    margin-right:50%;
+    right:-400px;
 }
 
+.top
+{
+    top:40px;
+}
+
+.left
+{
+    position:absolute;
+    top:190px;
+    margin-left:50%;
+    left:-400px;
+    text-align:left;
+}
+
+.page
+{
+    position:absolute;
+    margin-left:50%;
+    left:-410px;
+    top:0px;
+    width:820px;
+    height:100%;
+    background-color:#FFF;
+    opacity:0.8;
+    z-index:-1;
+}
+
+.logo
+{
+    position:absolute;
+    top:10px;
+    margin-left:50%;
+    left:-400px;
+}

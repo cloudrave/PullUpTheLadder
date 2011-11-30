@@ -7,7 +7,7 @@
     session_start();
 
     // verify that user is logged in for most pages
-    if(!preg_match("{/(:?go)\d*\.php$}", $_SERVER['PHP_SELF']) && !isset($_SESSION['id']))
+    if(!preg_match("{/(:?go|logout)\d*\.php$}", $_SERVER['PHP_SELF']) && !isset($_SESSION['id']))
       header("Location: /".$ROOT_ADDRESS."/go.php");
 
 ?>
