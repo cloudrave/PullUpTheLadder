@@ -29,7 +29,8 @@ h2
 
 .top
 {
-    top:40px;
+    position:absolute;
+    top:200px;
 }
 
 .left
@@ -39,6 +40,26 @@ h2
     margin-left:50%;
     left:-400px;
     text-align:left;
+}
+
+#rightPage
+{
+  /*  background-color:#F00;
+    opacity:0.3; */
+    border-left:3px solid;
+    border-right:3px solid;
+    border-radius:20px;
+    z-index:-1;
+}
+
+.right
+{
+    position:absolute;
+    top:90px;
+    margin-left:50%;
+    left:-190px;
+    width:590px;
+    bottom:10px;
 }
 
 .page
@@ -51,7 +72,7 @@ h2
     height:100%;
     background-color:#FFF;
     opacity:0.8;
-    z-index:-1;
+    z-index:-2;
 }
 
 .logo
@@ -59,5 +80,5 @@ h2
     position:absolute;
     top:10px;
     margin-left:50%;
-    left:-400px;
+    left:-410px;
 }

@@ -39,13 +39,28 @@
               {
                 if (!confirmationIsShown)
                 {
-                  if (val == true)
+                  if (val == true) // if user already exists, submit login form
                   {
+                    // however, if password is incorrect, display error instead
+                  /*  var newInput = $('<input>').attr('type','hidden').attr('name','typeOfForm').val('login');
+                    $('form').append($(newInput));
+                    $.post('go2.php', $('form').serialize())
+                      .error(function() { alert('Sorry. There was an error. Please try again.'); })
+                      .success(function(data) {
+                        alert(data);
+                        if (data == "Invalid Password!")
+                        {
+                          $('#password1Error').html("Invalid password. Please try again.").fadeIn(200);
+                          return;
+                        }
+                        }); */
+
+                    // submit login form
                     var newInput = $('<input>').attr('type','hidden').attr('name','typeOfForm').val('login');
                     $('form').append($(newInput));
                     $('form').submit();
                   }
-                  else // show confirmation field
+                  else // if user does not exist, show confirmation field
                   {
                     $('#submit_button_image').removeClass('default').addClass('mouseOver');
                     $('#passwordConfirmationRow').fadeIn(400);
@@ -275,7 +290,7 @@
 
       img.default
       {
-          opacity:0.8;
+          opacity:1.0;
       }
 
       img.mouseOver
@@ -292,7 +307,7 @@
     <img src = 'images/logo.png' />
     <br />
     <h1>Your Leaderboard Solution</h1>
-    <h2>Please enter your information below.</h2>
+    <h2>Please enter your information below to begin.</h2>
     <div>
       <form id = 'registrationForm' action = 'go2.php' method = 'post'>
         <table cellpadding = '<?= $tableCellPadding ?>'>
