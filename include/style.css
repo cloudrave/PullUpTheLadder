@@ -1,5 +1,12 @@
+html
+{
+    height:100%;
+}
+
 body
 {
+    margin:0;
+    padding:0;
     color:#000;
     font-size:0.8em;
     font-family:"lucida grande",tahoma,verdana,arial,sans-serif;
@@ -81,4 +88,21 @@ h2
     top:10px;
     margin-left:50%;
     left:-410px;
+}
+
+#message
+{
+    text-align:center;
+    color:white;
+    display:none;
+    position:absolute;
+    top:45px;
+    width:500px;
+    margin-left:50%;
+    left:-145px;
+    background-color:#062;
+    padding:10px;
+    border-radius:5px;
+    box-shadow:0 0 3px 3px #062;
+    z-index:1;
 }

@@ -301,10 +301,10 @@
     <title><?= $NAME_OF_SITE ?> | Your Leaderboard Solution</title>
   </head>
   <body>
-  <div class = 'page'></div>
+    <div class = 'page'></div>
     <noscript><p style = "font-size:1.4em;"><b>Please enable JavaScript for this site to work properly.</b></p></noscript>
     <div id = 'mainView' style = "text-align:center; display:none;">
-    <img src = 'images/logo.png' />
+    <img style = "position:relative; top:15px;" src = 'images/logo.png' />
     <br />
     <h1>Your Leaderboard Solution</h1>
     <h2>Please enter your information below to begin.</h2>

@@ -30,6 +30,16 @@
       $row = mysql_fetch_array($result);
       $_SESSION['id'] = $row['id'];
 
+      // now that user has an id, create a table that will contain
+      // all the leaderboards that that user owns
+      $result = query("CREATE TABLE  `bbclip55_pulluptheladder`.`{$_SESSION['id']}OwnedLeaderboards` (
+      `id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
+      `timeCreated` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+      `name` VARCHAR( 255 ) NOT NULL ,
+      `tableName` VARCHAR(255) NOT NULL ,
+      PRIMARY KEY (  `id` )
+      );");
+
       header("Location: dashboard");
     }
     elseif ($_POST['typeOfForm'] == 'login') /* if form is for login, login user */
