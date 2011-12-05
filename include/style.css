@@ -90,7 +90,7 @@ h2
     left:-410px;
 }
 
-#message
+div#message
 {
     text-align:center;
     color:white;
@@ -100,9 +100,19 @@ h2
     width:500px;
     margin-left:50%;
     left:-145px;
-    background-color:#062;
     padding:10px;
     border-radius:5px;
-    box-shadow:0 0 3px 3px #062;
     z-index:1;
+}
+
+.errorMessage
+{
+    background-color:#C00;
+    box-shadow:0 0 3px 3px #C00;
+}
+
+.successMessage
+{
+    background-color:#062;
+    box-shadow:0 0 3px 3px #062;
 }

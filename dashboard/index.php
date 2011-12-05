@@ -17,10 +17,10 @@
         echo "
         <script type = 'text/javascript'>
           function displayMessage()
-        {
-            $('#message').html('$message');
-            $('#message').fadeIn(200).delay(5000).fadeOut(500);
-        }
+          {
+	     displayMessageManual('$message', 'success');
+	     history.pushState({foo:'bar'}, 'page 2', '.');
+          }
         </script>
         ";
       }
@@ -29,14 +29,37 @@
         echo "
         <script type = 'text/javascript'>
           function displayMessage()
-        {
-          var i = 0; // essentially do nothing
-        }
+          {
+            // essentially do nothing
+          }
         </script>
         ";
       }
     ?>
+    <script type = 'text/javascript'>
+      function displayMessageManual(message, type)
+      {
+	hideMessage();
 
+        if (type == 'error')
+	{
+	  $('#message').addClass('errorMessage');
+	}
+	else if (type == 'success')
+	{
+	  $('#message').addClass('successMessage');
+	}
+
+	// show message briefly
+	$('#message').html(message);
+	$('#message').fadeIn(200).delay(5000).fadeOut(500);
+      }
+
+      function hideMessage()
+      {
+        $('#message').stop(false, true).hide();
+      }
+    </script>
     <script type = 'text/javascript'>
       
       $(document).ready(function() {
@@ -69,9 +92,9 @@
       <div id = 'navbar' class = 'left'>
         <?= getButtonManual("javascript: replaceWithAjax('#mainBody', 'ajax/createLeaderboardOptions.php', 200);", "createNewLeaderboardButton", "Create New Leaderboard", "$navbarButtonFontSize", "$navbarButtonWidth", "35"); ?>
         <br />
-        <?= getButtonManual("javascript: replaceWithAjax('#mainBody', 'ajax/activeLeaderboards.php', 200);", "modifyLeaderboard", "Modify Existing Board", "$navbarButtonFontSize", "$navbarButtonWidth", "35"); ?>
+        <?= getButtonManual("javascript: replaceWithAjax('#mainBody', 'ajax/listOfLeaderboardsToModify.php', 200);", "modifyLeaderboard", "Modify Existing Board", "$navbarButtonFontSize", "$navbarButtonWidth", "35"); ?>
         <br />
-        <?= getButtonManual("javascript: displayMessage();", "modifyLeaderboard", "Modify Existing Board", "$navbarButtonFontSize", "$navbarButtonWidth", "35"); ?>
+        <?= getButtonManual("javascript: displayMessage();", "modifyLeaderboard", "Show Message Again", "$navbarButtonFontSize", "$navbarButtonWidth", "35"); ?>
         <br />
         <?= getButtonManual("../account", "myAccountButton", "My Account", "$navbarButtonFontSize", "$navbarButtonWidth", "35"); ?>
       </div>

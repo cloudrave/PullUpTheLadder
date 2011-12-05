@@ -2,17 +2,22 @@
     require("../include/common.php");
 
     $leaderboardName = $_POST['name'];
-  //  $leaderboardName = mysqlRealEscapeString($leaderboardName);
+    // $leaderboardName = mysqlRealEscapeString($leaderboardName);
 
     // check to see if the user has already created
     // a leaderboard with this name
+    $result = query("SELECT name
+    FROM {$_SESSION['id']}OwnedLeaderboards
+    WHERE name = '$leaderboardName'");
+    if (mysql_num_rows($result) > 0)
+      die("Sorry. You must choose another name than $leaderboardName because you already created a leaderboard by this name.");
+
+    // set leaderboard table name to be in the form
+    // userID_leaderboardID
     $result = query("SELECT numLeaderboardsCreated
     FROM users WHERE id = {$_SESSION['id']}");
     $row = mysql_fetch_row($result);
     $num = $row[0];
-
-    // set leaderboard table name to be in the form
-    // userID_leaderboardID
     $leaderboardTableName = $_SESSION['id'] . "_" . $num;
 
     // be sure there is not already a table of this name
@@ -30,7 +35,7 @@
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,
     `playerName` VARCHAR( 255 ) NOT NULL
     ) ENGINE = MYISAM ;
-		   ");
+    ");
     
     // increment number of leaderboards created counter for user
     $result = query("UPDATE users
@@ -46,7 +51,8 @@
     VALUES (
       '$leaderboardName',
       '$leaderboardTableName'
-    );");
+    );
+    ");
 
 ?>
 

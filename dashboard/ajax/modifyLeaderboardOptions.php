@@ -7,7 +7,7 @@
     if(e.which == 13)
     {
       e.preventDefault();
-      submitForm();
+      $(this).submitForm();
     }
   });
 
@@ -15,6 +15,14 @@
   {
     displayMessageManual('Creating leaderboard . . .', 'error');
     $('form').submit();
+  }
+
+  function addPlayer(name)
+  {
+  }
+
+  function addPlayerWithRank(name, rank)
+  {
   }
 </script>
 
