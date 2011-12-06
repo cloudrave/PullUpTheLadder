@@ -4,6 +4,10 @@
     $leaderboardName = $_POST['name'];
     // $leaderboardName = mysqlRealEscapeString($leaderboardName);
 
+    // verify validity of name
+    if ($leaderboardName == "")
+      die("Sorry. You must choose a name that is not blank.");
+
     // check to see if the user has already created
     // a leaderboard with this name
     $result = query("SELECT name

@@ -7,16 +7,22 @@
   {
     tableNumber = tableNum;
     replaceWithAjax('#mainBody', 'ajax/modifyLeaderboardOptions.php', 200);
-    alert('this will call replacePageWithAjax() and send the tableNumber in question to the next ajax page.');
   }
 </script>
 
-<h2>Choose Leaderboard to Modify</h2>
+<h2>
+  <?php
+    // iterate through all leaderboards for user and print them with links to the screen like below
+    $result = query("SELECT name, tableName FROM {$_SESSION['id']}OwnedLeaderboards ORDER BY timeCreated DESC");
+    $numRows = mysql_num_rows($result);
+    if ($numRows > 0)
+      echo "Choose Leaderboard to Modify";
+    else
+      echo "You have not created any leaderboards yet. To modify a leaderboard, first <a href = \"javascript: $('#createNewLeaderboardButton').trigger('click');\">create one</a>.";
+  ?>
+</h2>
 <div style = 'text-align:left; padding-left:10px; padding-right:10px;'>
 <?php
-   // iterate through all leaderboards for user and print them with links to the screen like below
-   $result = query("SELECT name, tableName FROM {$_SESSION['id']}OwnedLeaderboards ORDER BY timeCreated DESC");
-   $numRows = mysql_num_rows($result);
    if ($numRows > 0)
      echo "<ul>";
    for ($i = 0; $i < $numRows; $i++)

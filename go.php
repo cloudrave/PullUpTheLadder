@@ -31,10 +31,15 @@
 
         // determine whether user already exists
         var username = encodeURIComponent($('#user_email').val());
+	$('#loader').fadeIn(100); // show loading icon
         $.getJSON('ajax/isUser.php?username=' + username)
-          .error(function() { alert('Sorry. There was an error. Please try again.'); })
+          .error(function() {
+	    $('#loader').fadeOut(100); // hide loading icon
+	    alert('Sorry. There was a problem with the Internet connection. Please try again.');
+	  })
           .success(function(data) {
-            $.each(data, function(key, val) {
+            $('#loader').fadeOut(100); // hide loading icon
+	    $.each(data, function(key, val) {
               if(key == 'status')
               {
                 if (!confirmationIsShown)
@@ -302,6 +307,10 @@
   </head>
   <body>
     <div class = 'page'></div>
+    <div id = 'loader' style = 'display:none; position:absolute; margin-left:50%; left:-180px; top:300px;'>
+      <!-- image courtesy of preloaders.net -->
+      <img src = 'images/loading.gif' />
+    </div>
     <noscript><p style = "font-size:1.4em;"><b>Please enable JavaScript for this site to work properly.</b></p></noscript>
     <div id = 'mainView' style = "text-align:center; display:none;">
     <img style = "position:relative; top:15px;" src = 'images/logo.png' />

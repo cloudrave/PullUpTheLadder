@@ -68,13 +68,20 @@
           // fade in page
           $('#mainView').fadeIn(200, displayMessage());
         });
+
+	// add click function to certain buttons
+        $('#createNewLeaderboardButton').click(function() {
+	  replaceWithAjax('#mainBody', 'ajax/createLeaderboardOptions.php', 200);
+        });
       });
     </script>
     
     <style>
       /* insert any additional CSS here */
     </style>
+
     <title><?= $NAME_OF_SITE ?> | Dashboard</title>
+    
   </head>
   <body>
     <div id = 'mainView' style = "display:none;">
@@ -84,13 +91,17 @@
       <div class = 'logo'><a href = './'><img src = '../images/logo-small.png' /></a></div>
       <div class = 'right' id = 'rightPage'></div>
       <div class = 'right'>
-      <h1>Dashboard</h1>
-      <div id = 'mainBody' style = 'text-align:center;'>
-        <h2><br />Please select an option to the left.</h2>
-      </div>
+        <h1>Dashboard</h1>
+        <div id = 'loader' style = 'display:none; position:absolute; margin-left:50%; left:-25px; top: 80px;'>
+          <!-- image courtesy of preloaders.net -->
+          <img src = '../../images/loading.gif' />
+        </div>
+        <div id = 'mainBody' style = 'text-align:center;'>
+          <h2><br />Please select an option to the left.</h2>
+        </div>
       </div>
       <div id = 'navbar' class = 'left'>
-        <?= getButtonManual("javascript: replaceWithAjax('#mainBody', 'ajax/createLeaderboardOptions.php', 200);", "createNewLeaderboardButton", "Create New Leaderboard", "$navbarButtonFontSize", "$navbarButtonWidth", "35"); ?>
+        <?= getButtonManual("#createNewLeaderboard", "createNewLeaderboardButton", "Create New Leaderboard", "$navbarButtonFontSize", "$navbarButtonWidth", "35"); ?>
         <br />
         <?= getButtonManual("javascript: replaceWithAjax('#mainBody', 'ajax/listOfLeaderboardsToModify.php', 200);", "modifyLeaderboard", "Modify Existing Board", "$navbarButtonFontSize", "$navbarButtonWidth", "35"); ?>
         <br />

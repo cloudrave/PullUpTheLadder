@@ -33,17 +33,26 @@
   }
 </style>
 
-<form method = 'post' action = 'createNewLeaderboard2.php'>
-  <table align = 'center'>
+<form id = 'addPlayer'>
+  <input type = 'hidden' name = 'type' value = 'addPlayer'>
     <tr>
-      <td>Name of Leaderboard</td>
-      <td><input name = 'name'></td>
+      <td>Player Name</td>
+      <td><input name = 'addPlayerName'></td>
     </tr>
     <tr>
       <td colspan = 2>
-        <?= getButtonAuto("javascript: submitForm();", "submitButton", "Create Leaderboard", "18"); ?>
+        <?= getButtonAuto("javascript: addPlayer();", "addPlayerButton", "Add Player", "18"); ?>
       </td>
     </tr>
   </table>
-  <input type = 'hidden' name = 'type' value = 'withoutPointSystem'>
+</form>
+
+<br />
+
+<form id = 'updatePosition'>
+  <table>
+    <tr>
+     <td></td>
+    </tr>
+  </table>
 </form>
