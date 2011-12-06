@@ -37,7 +37,8 @@
     $result = query("CREATE TABLE  `bbclip55_pulluptheladder`.`$leaderboardTableName` 
     (
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,
-    `playerName` VARCHAR( 255 ) NOT NULL
+    `playerName` VARCHAR( 255 ) NOT NULL ,
+    `playerRank` INT NOT NULL
     ) ENGINE = MYISAM ;
     ");
     

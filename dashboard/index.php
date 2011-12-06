@@ -73,6 +73,9 @@
         $('#createNewLeaderboardButton').click(function() {
 	  replaceWithAjax('#mainBody', 'ajax/createLeaderboardOptions.php', 200);
         });
+
+	// make message's default class 'success'
+	$('#message').addClass('successMessage');
       });
     </script>
     
@@ -84,9 +87,9 @@
     
   </head>
   <body>
+    <noscript><p style = "font-size:1.4em;"><b>Please enable JavaScript for this site to work properly.</b></p></noscript>
     <div id = 'mainView' style = "display:none;">
       <div id = 'message'></div>
-      <noscript><p style = "font-size:1.4em;"><b>Please enable JavaScript for this site to work properly.</b></p></noscript>
       <div class = 'page'></div>
       <div class = 'logo'><a href = './'><img src = '../images/logo-small.png' /></a></div>
       <div class = 'right' id = 'rightPage'></div>
@@ -101,11 +104,13 @@
         </div>
       </div>
       <div id = 'navbar' class = 'left'>
-        <?= getButtonManual("#createNewLeaderboard", "createNewLeaderboardButton", "Create New Leaderboard", "$navbarButtonFontSize", "$navbarButtonWidth", "35"); ?>
+        <?= getButtonManual("#", "createNewLeaderboardButton", "Create New Leaderboard", "$navbarButtonFontSize", "$navbarButtonWidth", "35"); ?>
         <br />
         <?= getButtonManual("javascript: replaceWithAjax('#mainBody', 'ajax/listOfLeaderboardsToModify.php', 200);", "modifyLeaderboard", "Modify Existing Board", "$navbarButtonFontSize", "$navbarButtonWidth", "35"); ?>
         <br />
-        <?= getButtonManual("javascript: displayMessage();", "modifyLeaderboard", "Show Message Again", "$navbarButtonFontSize", "$navbarButtonWidth", "35"); ?>
+        <?= getButtonManual("javascript: replaceWithAjax('#mainBody', 'ajax/listOfLeaderboardsToDisplay.php', 200);", "displayLeaderboard", "Display Existing Board", "$navbarButtonFontSize", "$navbarButtonWidth", "35"); ?>
+        <br />
+        <?= getButtonManual("javascript: replaceWithAjax('#mainBody', 'ajax/listOfLeaderboardsToGiveLink.php', 200);", "getLeaderboardLink", "Get a Board's Public Link", "$navbarButtonFontSize", "$navbarButtonWidth", "35"); ?>
         <br />
         <?= getButtonManual("../account", "myAccountButton", "My Account", "$navbarButtonFontSize", "$navbarButtonWidth", "35"); ?>
       </div>
