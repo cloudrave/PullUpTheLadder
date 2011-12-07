@@ -3,11 +3,18 @@
 ?>
 
 <script type = 'text/javascript'>
-  function displayModifyLeaderboardOptions(table_num, table_name)
+  function displayLeaderboard(table_num, table_name)
   {
-    leaderboardTableNumber = table_num;
-    leaderboardName = table_name;
-    replaceWithAjax('#mainBody', 'ajax/formToModifyLeaderboard.php', 200);
+    $('#loader').fadeIn(100);
+    $.get("ajax/getPublicLink.php", { tableNumber: table_num })
+      .error(function() {
+        alert('Sorry. There was an error. Please try again.');
+	$('#loader').hide();
+      })
+      .success(function(data) {
+        var link = "http://www.pulluptheladder.com/display.php?code=" + data;
+	window.location = link;
+      });
   }
 </script>
 
