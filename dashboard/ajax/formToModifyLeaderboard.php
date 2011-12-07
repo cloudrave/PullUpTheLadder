@@ -14,6 +14,10 @@
     // show which board is being modified
     $('#boardToModify').html("Modifying <em>" + leaderboardName + "</em>");
 
+    // set select field width and font size
+    $('select').css('width', '160px').css('font-size', '1.5em');
+
+
     refreshPlayersList();
   });
 
@@ -21,12 +25,12 @@
   {
     // load players into select lists
     output = "";
-    output += "<option value = ''>-- Select Player --</option>\n";
+    output += "<option value = '0'>-- Select Player --</option>\n";
     $.getJSON('ajax/playerList.php', { tableNumber: leaderboardTableNumber })
       .error(function() { alert('Sorry. There was an error loading players in this leaderboard. Please check your connection and try again.'); })
       .success(function(data) {
         $.each(data, function(playerRank, playerName) {
-          output += "<option value = 'something'>";
+          output += "<option value = '" + playerRank + "'>";
 	  output += playerRank;
 	  output += ". ";
           output += playerName;
@@ -34,22 +38,19 @@
         });
         $('.playerOptions').html(output);
       });
+    $('.playerOptions').val('0');
   }
-  // be sure to submit correct form when enter key is pressed
+
+  // do not submit forms on enter (make user press button
+  // to prevent accidental submittions
   $('input').keypress(function(e) {
     if(e.which == 13)
     {
       e.preventDefault();
-      $(this).submitForm();
     }
   });
 
-  function submitForm()
-  {
-    displayMessageManual('Creating leaderboard . . .', 'success');
-    $('form').submit();
-  }
-
+  // add's player at the bottom of the leaderboard
   function addPlayer()
   {
     var name = $('#addPlayerName').val();
@@ -63,8 +64,16 @@
 
   }
 
-  function addPlayerWithRank(name, rank)
+  function updatePosition()
   {
+    var winnerRank1 = $('#winner').val();
+    var loserRank1 = $('#loser').val();
+    $.get("ajax/updatePosition2.php", { winnerRank: winnerRank1, loserRank: loserRank1, tableNumber: leaderboardTableNumber })
+      .error(function() { alert('Sorry. There was an error with the connection.'); })
+      .success(function() {
+        displayMessageManual("The result was successfully added."); 
+	refreshPlayersList();
+      });
   }
 </script>
 
@@ -101,11 +110,11 @@
     <form id = 'updatePosition'>
       <input type = 'hidden' name = 'type' value = 'updatePosition'>
       <td>
-        <select class = 'playerOptions'></select>
+        <select id = 'winner' class = 'playerOptions'></select>
       </td>
       <td>beat</td>
       <td>
-        <select class = 'playerOptions'></select>
+        <select id = 'loser' class = 'playerOptions'></select>
       </td>
       <td><?= getButtonAuto("javascript: updatePosition();", "updatePositionButton", "Update Position", "18"); ?></td>
     </form>

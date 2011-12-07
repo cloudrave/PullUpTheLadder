@@ -2,6 +2,11 @@
     require("../../include/helpers.php");
 ?>
 
+<script>
+  replaceWithAjax('#mainBody', 'ajax/formToCreateNewLeaderboardWithoutPointSystem.php', 200);
+</script>
+
+<!--
 <h2>Create New Leaderboard</h2>
 <div>
 <p>
@@ -9,3 +14,4 @@
     <?= getButtonManual("javascript: replaceWithAjax('#mainBody', 'ajax/formToCreateNewLeaderboardWithoutPointSystem.php', 200);", "createNewLeaderboardWithoutPointSystemButton", "without Point System", "18", "250", "35"); ?> 
 </p>
 </div>
+-->

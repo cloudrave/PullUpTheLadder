@@ -6,7 +6,7 @@ function replaceWithAjax(elementName, ajaxLink, fadeTime)
     $(elementName).fadeOut(fadeTime);
     $.get(ajaxLink)
       .error(function() {
-        $('#loader').fadeOut(100);
+        $('#loader').hide();
         $(this).show();
         alert('Sorry. There was a problem with the Internet connection. Please try again.');
       })

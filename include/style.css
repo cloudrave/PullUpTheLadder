@@ -71,10 +71,11 @@ h2
 
 .page
 {
-    position:absolute;
+    position:fixed;
+    text-align:center;
+    top:0px;
     margin-left:50%;
     left:-410px;
-    top:0px;
     width:820px;
     height:100%;
     background-color:#CCD9E3;
@@ -92,7 +93,7 @@ h2
 div#message
 {
     text-align:center;
-    color:white;
+    color:#FFF;
     display:none;
     position:absolute;
     top:45px;

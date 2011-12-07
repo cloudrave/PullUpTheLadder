@@ -52,7 +52,7 @@
     function getButtonAuto($link, $imageID, $text, $fontSize)
     {
         $text = urlencode($text);
-        return "<a href = \"{$link}\"><img id = '{$imageID}' src = 'http://dabuttonfactory.com/b?t={$text}&f=Calibri-Bold&ts={$fontSize}&tc=ffffff&tshs=1&tshc=222222&it=png&c=3&bgt=gradient&bgc=4477cc&ebgc=223388&bs=1&bc=569&vp=11&hp=20' /></a>";
+        return "<a href = \"{$link}\"><img id = '{$imageID}' src = 'http://dabuttonfactory.com/b?t={$text}&f=Calibri-Bold&ts={$fontSize}&tc=ffffff&tshs=1&tshc=222222&it=png&c=3&bgt=gradient&bgc=4477cc&ebgc=223388&bs=1&bc=569&vp=7&hp=10' /></a>";
     }
 
     // Return link to button image from dabuttonfactory.com with specified width and height
@@ -66,6 +66,6 @@
     function getButtonLinkAuto($text, $fontSize)
     {
         $text = urlencode($text);
-        return 'http://dabuttonfactory.com/b?t='.$text.'&f=Calibri-Bold&ts='.$fontSize.'&tc=ffffff&tshs=1&tshc=222222&it=png&c=3&bgt=gradient&bgc=4477cc&ebgc=223388&bs=1&bc=569&vp=11&hp=20';
+        return 'http://dabuttonfactory.com/b?t='.$text.'&f=Calibri-Bold&ts='.$fontSize.'&tc=ffffff&tshs=1&tshc=222222&it=png&c=3&bgt=gradient&bgc=4477cc&ebgc=223388&bs=1&bc=569&vp=7&hp=10';
     }
 ?>

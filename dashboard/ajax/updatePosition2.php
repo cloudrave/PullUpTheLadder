@@ -1,20 +1,36 @@
 <?php
   require("../../include/common.php");
 
-  $winningPlayer = $_GET['winningPlayer'];
-  $losingPlayer = $_GET['losingPlayer'];
+  $winnerRank = $_GET['winnerRank'];
+  $loserRank = $_GET['loserRank'];
   $tableNumber = $_GET['tableNumber'];
 
-  $result = query("SELECT playerName, playerRank FROM $tableNumber ORDER BY playerRank ASC");
-  $numRows = mysql_num_rows($result);
-  $arrayOfPlayers = array();
+  // if loser's rank is lower than or equal
+  // (greater than or equal in terms of numbers)
+  // than winner's rank, do nothing
+  if ($loserRank >= $winnerRank)
+    die('Winner must beat someone with better rank to update leaderboard.');
 
-  for ($i = 0; $i < $numRows; $i++)
-  {
-    $row = mysql_fetch_array($result);
-    $arrayOfPlayers[$row['playerRank']] = $row['playerName'];
-  }
+  // find loser's id
+  $result = query("SELECT * FROM $tableNumber WHERE playerRank = $loserRank");
+  $loserData = mysql_fetch_array($result);
+  $loserID = $loserData['id'];
+  
+  // find winner's id
+  $result = query("SELECT * FROM $tableNumber WHERE playerRank = $winnerRank");
+  $winnerData = mysql_fetch_array($result);
+  $winnerID = $winnerData['id'];
 
-  echo json_encode($arrayOfPlayers);
+  echo "loserRank = $loserRank ; loserID = $loserID ; winnerRank = $winnerRank ; winnerID = $winnerID";
 
+  // set winner's rank as loser's old rank
+  $result = query("UPDATE $tableNumber SET playerRank = $loserRank WHERE id = $winnerID");
+  $winnerOldRank = $winnerRank; // remember winner's old rank
+  $winnerRank = $loserRank;
+
+  // move everyone below winner's rank (with higher rank #)
+  // down the ladder one position (by increasing rank # by 1)
+  $result = query("UPDATE $tableNumber SET playerRank = playerRank + 1 WHERE playerRank > $winnerRank AND playerRank < $winnerOldRank"); // move everyone else down
+  $result = query("UPDATE $tableNumber SET playerRank = playerRank + 1 WHERE id = $loserID"); // move loser down
+  
 ?>

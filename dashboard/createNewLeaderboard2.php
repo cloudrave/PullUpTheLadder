@@ -1,8 +1,7 @@
 <?php
     require("../include/common.php");
 
-    $leaderboardName = $_POST['name'];
-    // $leaderboardName = mysqlRealEscapeString($leaderboardName);
+    $leaderboardName = mysqlRealEscapeString($_POST['name']);
 
     // verify validity of name
     if ($leaderboardName == "")
@@ -48,16 +47,31 @@
     WHERE id = {$_SESSION['id']}
     ");
     
-    // add table into list of user's owned tables
+    // generate random link
+    $random = mt_rand(10000,1999999);
+
+    // add table into list of user's owned leaderboards
     $result = query("INSERT INTO `bbclip55_pulluptheladder`.`{$_SESSION['id']}OwnedLeaderboards` (
     `name`,
-    `tableName`
+    `tableName`,
+    `publicLink`
     )
     VALUES (
       '$leaderboardName',
-      '$leaderboardTableName'
+      '$leaderboardTableName',
+      $random
     );
     ");
+
+    // add table into list of all leaderboards
+    $result = query("INSERT INTO allLeaderboards (
+      tableNumber,
+      publicLink
+    )
+    VALUES (
+      '$leaderboardTableName',
+      $random
+    )");
 
 ?>
 

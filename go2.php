@@ -38,6 +38,7 @@
       `name` VARCHAR( 255 ) NOT NULL ,
       `tableName` VARCHAR(255) NOT NULL ,
       `permissions` INT NOT NULL ,
+      `publicLink` VARCHAR(255) NOT NULL ,
       PRIMARY KEY (  `id` )
       );");
 

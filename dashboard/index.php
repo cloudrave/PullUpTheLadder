@@ -110,7 +110,7 @@
         <br />
         <?= getButtonManual("javascript: replaceWithAjax('#mainBody', 'ajax/listOfLeaderboardsToDisplay.php', 200);", "displayLeaderboard", "Display Existing Board", "$navbarButtonFontSize", "$navbarButtonWidth", "35"); ?>
         <br />
-        <?= getButtonManual("javascript: replaceWithAjax('#mainBody', 'ajax/listOfLeaderboardsToGiveLink.php', 200);", "getLeaderboardLink", "Get a Board's Public Link", "$navbarButtonFontSize", "$navbarButtonWidth", "35"); ?>
+        <?= getButtonManual("javascript: replaceWithAjax('#mainBody', 'ajax/listOfLeaderboardsToGetPublicLink.php', 200);", "getLeaderboardLink", "Get a Board's Public Link", "$navbarButtonFontSize", "$navbarButtonWidth", "35"); ?>
         <br />
         <?= getButtonManual("../account", "myAccountButton", "My Account", "$navbarButtonFontSize", "$navbarButtonWidth", "35"); ?>
       </div>
