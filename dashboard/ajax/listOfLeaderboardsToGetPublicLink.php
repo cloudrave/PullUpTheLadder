@@ -26,7 +26,7 @@
     $result = query("SELECT name, tableName FROM {$_SESSION['id']}OwnedLeaderboards ORDER BY timeCreated DESC");
     $numRows = mysql_num_rows($result);
     if ($numRows > 0)
-      echo "Choose Leaderboard to Modify";
+      echo "Choose Leaderboard to Obtain a Public Link";
     else
       echo "You have not created any leaderboards yet. To get public links for a leaderboard, first <a href = \"javascript: $('#createNewLeaderboardButton').trigger('click');\">create one</a>.";
   ?>
