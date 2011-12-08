@@ -1,4 +1,5 @@
 <?php
+    // include common code (helpers, etc.)
     require("include/common.php");
 ?>
 <!DOCTYPE html>
@@ -46,35 +47,20 @@
                 {
                   if (val == true) // if user already exists, submit login form
                   {
-                    // however, if password is incorrect, display error instead
-                  /*  var newInput = $('<input>').attr('type','hidden').attr('name','typeOfForm').val('login');
-                    $('form').append($(newInput));
-                    $.post('go2.php', $('form').serialize())
-                      .error(function() { alert('Sorry. There was an error. Please try again.'); })
-                      .success(function(data) {
-                        alert(data);
-                        if (data == "Invalid Password!")
-                        {
-                          $('#password1Error').html("Invalid password. Please try again.").fadeIn(200);
-                          return;
-                        }
-                        }); */
-
-                    // submit login form
-                    var newInput = $('<input>').attr('type','hidden').attr('name','typeOfForm').val('login');
-                    $('form').append($(newInput));
-                    $('form').submit();
+                    var newInput = $('<input>').attr('type','hidden').attr('name','typeOfForm').val('login'); // create hidden input to inform next page that user is trying to login, not register
+                    $('form').append($(newInput)); // append that input to the form
+                    $('form').submit(); // submit form
                   }
                   else // if user does not exist, show confirmation field
                   {
                     $('#submit_button_image').removeClass('default').addClass('mouseOver');
-                    $('#passwordConfirmationRow').fadeIn(400);
-                    $('#submit_button_image').slideUp(250);
-                    $('#signup_button_image').slideDown(250);
-                    $('#password_confirmation').focus();
-                    $('#password_confirmation_label').show();
+                    $('#passwordConfirmationRow').fadeIn(400); // fade in password confirmation row
+                    $('#submit_button_image').slideUp(250); // hide 'Go' button
+                    $('#signup_button_image').slideDown(250); // show 'Sign Up' button
+                    $('#password_confirmation').focus(); // select password confirmation field
+                    $('#password_confirmation_label').show(); // show password confirmation label, since it was just hidden by selecting the field
 
-                    confirmationIsShown = true;
+                    confirmationIsShown = true; // keep track state of the machine
                   }
                 }
                 else // if confirmation field is already shown
@@ -85,21 +71,18 @@
                   // display error message if passwords don't match
                   if (password2 != password1)
                   {
-                    $('#userPassword2Error').html("Please enter matching passwords.").fadeIn(200);
-                    return;
+                    $('#userPassword2Error').html("Please enter matching passwords.").fadeIn(200); // show error
+                    return; // stop function there, before form is submitted
                   }
 
                   // submit form
-                  var newInput = $('<input>').attr('type','hidden').attr('name','typeOfForm').val('register');
-                  $('form').append($(newInput));
-                  $('form').submit();
+                  var newInput = $('<input>').attr('type','hidden').attr('name','typeOfForm').val('register'); // create input to let next page know that form is supposed to be submitted as a 'register' form, not 'login' form
+                  $('form').append($(newInput)); // append that input to the form
+                  $('form').submit(); // submit form
                 }
               }
           });
         });
-
-        // submit form
-//        $('form').submit();
       }
       
       $(document).ready(function() {
@@ -108,24 +91,28 @@
         // update classes
         $('input').addClass('unfocused');
         $('#submit_button_image').addClass('default');
+
         // clear all fields
         $('input').val('');
-        // set labels and errors to not display
+        
+	// set labels and errors to not display
         $('label').css('display','none');
         $('.formError').css('display','none');
-        // set animation for when page elements are completely loaded
+        
+	// set animation for when page elements are completely loaded
         $(window).bind('load', function() {
           $('#mainView').fadeIn(200);
           $('label').delay(100).fadeIn(400);
         });
-        // allow user to submit form with enter key (maintaining looks of course)
+        
+	// allow user to submit form with enter key (maintaining looks of course)
         $('input').keypress(function(e) {
           if(e.which == 13) {
             submitForm();
           }
         });
 
-        confirmationIsShown = false;
+        confirmationIsShown = false; // keep track of state of machine
 
         /* if email field is selected... */
         $('#user_email').focus(function() {

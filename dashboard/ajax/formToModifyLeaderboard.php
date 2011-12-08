@@ -1,4 +1,5 @@
 <?php
+  // ensure user is still logged in and that helpers are included
   require("../../include/common.php");
 ?>
 
@@ -17,13 +18,16 @@
     // set select field width and font size
     $('select').css('width', '160px').css('font-size', '1.5em');
 
-
+    // refresh the list of players in the select fields
     refreshPlayersList();
   });
 
+  // refreshes the list of players in the select fields
   function refreshPlayersList()
   {
-    // load players into select lists
+    // load players into select lists, setting HTML 'value' property
+    // as the player's rank and the text displayed as the player's
+    // name
     output = "";
     output += "<option value = '0'>-- Select Player --</option>\n";
     $.getJSON('ajax/playerList.php', { tableNumber: leaderboardTableNumber })
@@ -36,13 +40,13 @@
           output += playerName;
           output += "</option>\n";
         });
-        $('.playerOptions').html(output);
+        $('.playerOptions').html(output); // place output into select fields
       });
-    $('.playerOptions').val('0');
+    $('.playerOptions').val('0'); // make sure the selected value is back to '-- Select Player --'
   }
 
   // do not submit forms on enter (make user press button
-  // to prevent accidental submittions
+  // to prevent accidental submittions)
   $('input').keypress(function(e) {
     if(e.which == 13)
     {
@@ -50,28 +54,33 @@
     }
   });
 
-  // add's player at the bottom of the leaderboard
+  // adds player at the bottom of the leaderboard
   function addPlayer()
   {
-    var name = $('#addPlayerName').val();
-    $.get("ajax/addPlayer2.php", { playerName: name, tableNumber: leaderboardTableNumber })
-      .error(function() { alert('Sorry. There was an error with the connection.'); })
+    $('#loader').fadeIn(100); // show load animation
+    var name = $('#addPlayerName').val(); // get player name to add
+    $.get("ajax/addPlayer2.php", { playerName: name, tableNumber: leaderboardTableNumber }) // send player's name and which table to add him/her to via Ajax
+      .error(function() { $('#loader').fadeOut(100); alert('Sorry. There was an error with the connection.'); })
       .success(function() {
-	displayMessageManual(''+name+' was successfully added.');
-	$('#addPlayerName').val('');
+	displayMessageManual(''+name+' was successfully added.', 'success'); // display success message
+	$('#addPlayerName').val(''); // reset form to blank
+	$('#loader').fadeOut(100); // hide load animation
 	refreshPlayersList();
       });
 
   }
 
+  // updates the rank of players depending on who beats whom
   function updatePosition()
   {
-    var winnerRank1 = $('#winner').val();
-    var loserRank1 = $('#loser').val();
-    $.get("ajax/updatePosition2.php", { winnerRank: winnerRank1, loserRank: loserRank1, tableNumber: leaderboardTableNumber })
-      .error(function() { alert('Sorry. There was an error with the connection.'); })
+    $('#loader').fadeIn(100); // show load animation
+    var winnerRank1 = $('#winner').val(); // get rank of winner
+    var loserRank1 = $('#loser').val(); // get rank of loser
+    $.get("ajax/updatePosition2.php", { winnerRank: winnerRank1, loserRank: loserRank1, tableNumber: leaderboardTableNumber }) // submit data to PHP page
+      .error(function() { $('#loader').fadeOut(100); alert('Sorry. There was an error with the connection.'); })
       .success(function() {
-        displayMessageManual("The result was successfully added."); 
+        displayMessageManual("Positions were successfully updated.", 'success'); // display success message
+	$('#loader').fadeOut(100); // hide load animation
 	refreshPlayersList();
       });
   }

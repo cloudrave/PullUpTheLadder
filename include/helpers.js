@@ -2,8 +2,8 @@
 function replaceWithAjax(elementName, ajaxLink, fadeTime)
 {
     fadeTime = 100; // force fade time to default value
-    $('#loader').fadeIn(100);
-    $(elementName).fadeOut(fadeTime);
+    $('#loader').fadeIn(100); // show load animation
+    $(elementName).fadeOut(fadeTime); // fade out current page
     $.get(ajaxLink)
       .error(function() {
         $('#loader').hide();
@@ -12,8 +12,8 @@ function replaceWithAjax(elementName, ajaxLink, fadeTime)
       })
       .success(function(data) {
         $(elementName).fadeOut(fadeTime, function() {
-          $('#loader').fadeOut(100);
-	  $(this).html(data).fadeIn(fadeTime);
+          $('#loader').fadeOut(100); // hide load animation
+	  $(this).html(data).fadeIn(fadeTime); // show new page after changing its HTML
 	});
       });
 }

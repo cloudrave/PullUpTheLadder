@@ -1,9 +1,10 @@
 <?php
+  // ensure user is logged in and that helpers are included
   require("../../include/common.php");
 
-  $winnerRank = $_GET['winnerRank'];
-  $loserRank = $_GET['loserRank'];
-  $tableNumber = $_GET['tableNumber'];
+  $winnerRank = mysqlRealEscapeString($_GET['winnerRank']);
+  $loserRank = mysqlRealEscapeString($_GET['loserRank']);
+  $tableNumber = mysqlRealEscapeString($_GET['tableNumber']);
 
   // if loser's rank is lower than or equal
   // (greater than or equal in terms of numbers)
@@ -20,8 +21,6 @@
   $result = query("SELECT * FROM $tableNumber WHERE playerRank = $winnerRank");
   $winnerData = mysql_fetch_array($result);
   $winnerID = $winnerData['id'];
-
-  echo "loserRank = $loserRank ; loserID = $loserID ; winnerRank = $winnerRank ; winnerID = $winnerID";
 
   // set winner's rank as loser's old rank
   $result = query("UPDATE $tableNumber SET playerRank = $loserRank WHERE id = $winnerID");

@@ -1,8 +1,11 @@
 <?php
+  // ensure user is logged in and include helpers
   require("../../include/common.php");
 ?>
 
 <script type = 'text/javascript'>
+  // ensure that when enter key is pressed, the submitForm()
+  // function is called instead of the usual form submission method
   $('input').keypress(function(e) {
     if(e.which == 13)
     {
@@ -11,9 +14,10 @@
     }
   });
 
+  // before submitting form, display status message
   function submitForm()
   {
-    displayMessageManual('Creating leaderboard . . .', 'error');
+    displayMessageManual('Creating leaderboard . . .', 'success');
     $('form').submit();
   }
 </script>

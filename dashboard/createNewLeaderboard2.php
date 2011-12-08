@@ -1,6 +1,8 @@
 <?php
+    // ensure user is logged in and that helpers are included
     require("../include/common.php");
-
+    
+    // get leaderboard name from POST data
     $leaderboardName = mysqlRealEscapeString($_POST['name']);
 
     // verify validity of name
@@ -78,6 +80,7 @@
 <?= defaults(); ?>
 
 <script type = 'text/javascript'>
+// immediately submit the form when code has loaded completely
 $(document).ready(function() {
   $('form').submit();
 });
