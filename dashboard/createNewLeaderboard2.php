@@ -4,6 +4,7 @@
     
     // get leaderboard name from POST data
     $leaderboardName = mysqlRealEscapeString($_POST['name']);
+    $leaderboardName = stripslashes($leaderboardName);
 
     // verify validity of name
     if ($leaderboardName == "")
