@@ -28,7 +28,13 @@
     // get sharing user's id
     $row = mysql_fetch_array($user);
     $userID = $row['id'];
-     
+    
+    // make sure user doesn't already have this leaderboard
+    $result = query("SELECT * FROM {$userID}OwnedLeaderboards WHERE tableName = '$tableNumber'");
+    if (mysql_num_rows($result) > 0)
+      die("success"); // since user already has this leaderboard, sharing essentially succeeded
+    
+    // share leaderboard
     $result = query("INSERT INTO {$userID}OwnedLeaderboards (name, tableName, permissions, publicLink) VALUES ('$leaderboardName', '$tableNumber', 1, '$leaderboardPublicLink')");
 
     echo "success";

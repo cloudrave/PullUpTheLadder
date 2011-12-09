@@ -56,11 +56,11 @@
 	// depending on type of message
         if (type == 'error')
 	{
-	  $('#message').addClass('errorMessage');
+	  $('#message').removeClass('successMessage').addClass('errorMessage');
 	}
 	else if (type == 'success')
 	{
-	  $('#message').addClass('successMessage');
+	  $('#message').removeClass('errorMessage').addClass('successMessage');
 	}
 
 	// show message briefly

@@ -13,9 +13,14 @@
         alert('Sorry. There was an error. Please try again.');
 	$('#loader').hide();
       })
-      .success(function() {
+      .success(function(data) {
         $('#loader').fadeOut(100);
-        displayMessageManual("<em>" + table_name +"</em> has been successfully shared.", "success");
+	if (data == 'success')
+          displayMessageManual("<em>" + table_name +"</em> has been successfully shared.", "success");
+	else if (data == 'This user does not exist.')
+	  displayMessageManual("Sorry. This person is not yet using <span style = 'font-variant:small-caps;'>Pull Up the Ladder</span>. Before you share with them, they must create an account.", "error");
+	else
+	  displayMessageManual("Sorry. " + data, "error");
       });
   }
 </script>
