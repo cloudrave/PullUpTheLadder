@@ -3,5 +3,5 @@
     require('include/common.php');
 
     // if user is logged in, redirect user to dashboard
-    header("Location: dashboard");
+    header("Location: http://www.pulluptheladder.com/dashboard/");
 ?>

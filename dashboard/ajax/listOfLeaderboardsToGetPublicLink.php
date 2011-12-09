@@ -32,7 +32,7 @@
   ?>
 </h2>
 <h3 id = 'linkArea'></h3>
-<div style = 'text-align:left; padding-left:10px; padding-right:10px;'>
+<div class = 'leaderboardList'> 
 <?php
    if ($numRows > 0)
      echo "<ul>";

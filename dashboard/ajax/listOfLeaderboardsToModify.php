@@ -22,7 +22,7 @@
       echo "You have not created any leaderboards yet. To modify a leaderboard, first <a href = \"javascript: $('#createNewLeaderboardButton').trigger('click');\">create one</a>.";
   ?>
 </h2>
-<div style = 'text-align:left; padding-left:10px; padding-right:10px;'>
+<div class = 'leaderboardList'> 
 <?php
    if ($numRows > 0)
      echo "<ul>";

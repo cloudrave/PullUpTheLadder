@@ -67,7 +67,6 @@
 	$('#loader').fadeOut(100); // hide load animation
 	refreshPlayersList();
       });
-
   }
 
   // updates the rank of players depending on who beats whom
@@ -80,6 +79,20 @@
       .error(function() { $('#loader').fadeOut(100); alert('Sorry. There was an error with the connection.'); })
       .success(function() {
         displayMessageManual("Positions were successfully updated.", 'success'); // display success message
+	$('#loader').fadeOut(100); // hide load animation
+	refreshPlayersList();
+      });
+  }
+
+  // removes the selected player
+  function removePlayer()
+  {
+    $('#loader').fadeIn(100); // show load animation
+    var playerRank1 = $('#playerToRemove').val(); // get player rank to remove
+    $.get("ajax/removePlayer2.php", { playerRank: playerRank1, tableNumber: leaderboardTableNumber }) // send player's rank and which table to remove him/her from via Ajax
+      .error(function() { $('#loader').fadeOut(100); alert('Sorry. There was an error with the connection.'); })
+      .success(function() {
+	displayMessageManual('Player was successfully removed.', 'success'); // display success message
 	$('#loader').fadeOut(100); // hide load animation
 	refreshPlayersList();
       });
@@ -104,7 +117,6 @@
 <table>
   <tr>
     <form id = 'addPlayer'>
-      <input type = 'hidden' name = 'type' value = 'addPlayer'>
       <td>Player Name</td>
       <td><input id = 'addPlayerName' type = 'text'></td>
       <td><?= getButtonAuto("javascript: addPlayer();", "addPlayerButton", "Add Player", "18"); ?></td>
@@ -117,7 +129,6 @@
 <table>
   <tr>
     <form id = 'updatePosition'>
-      <input type = 'hidden' name = 'type' value = 'updatePosition'>
       <td>
         <select id = 'winner' class = 'playerOptions'></select>
       </td>
@@ -126,6 +137,21 @@
         <select id = 'loser' class = 'playerOptions'></select>
       </td>
       <td><?= getButtonAuto("javascript: updatePosition();", "updatePositionButton", "Update Position", "18"); ?></td>
+    </form>
+  </tr>
+</table>
+
+<hr>
+
+<table>
+  <tr>
+    <form id = 'removePlayer'>
+      <td>
+        <select id = 'playerToRemove' class = 'playerOptions'></select>
+      </td>
+      <td>
+        <?= getButtonAuto("javascript: removePlayer();", "removePlayerButton", "Remove Player", "18"); ?>
+      </td>
     </form>
   </tr>
 </table>

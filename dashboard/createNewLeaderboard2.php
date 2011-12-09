@@ -50,9 +50,17 @@
     WHERE id = {$_SESSION['id']}
     ");
     
-    // generate random link
-    $random = mt_rand(10000,1999999);
-
+    // generate random link until a link is found that is not taken
+    // by another leaderboard on the site
+    $appropriateLinkFound = false;
+    do
+    {
+      $random = mt_rand(10000,1999999);
+      $result = query("SELECT * FROM `bbclip55_pulluptheladder`.`{$_SESSION['id']}OwnedLeaderboards` WHERE publicLink = $random");
+      if (mysql_num_rows($result) == 0)
+        $appropriateLinkFound = true;
+    } while ($appropriateLinkFound == false);
+    
     // add table into list of user's owned leaderboards
     $result = query("INSERT INTO `bbclip55_pulluptheladder`.`{$_SESSION['id']}OwnedLeaderboards` (
     `name`,

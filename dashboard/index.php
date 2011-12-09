@@ -126,9 +126,16 @@
         <?= getButtonManual("javascript: replaceWithAjax('#mainBody', 'ajax/listOfLeaderboardsToDisplay.php', 200);", "displayLeaderboard", "Display Existing Board", "$navbarButtonFontSize", "$navbarButtonWidth", "35"); ?>
         <br />
         <?= getButtonManual("javascript: replaceWithAjax('#mainBody', 'ajax/listOfLeaderboardsToGetPublicLink.php', 200);", "getLeaderboardLink", "Get a Board's Public Link", "$navbarButtonFontSize", "$navbarButtonWidth", "35"); ?>
+        <br />
+        <?= getButtonManual("javascript: replaceWithAjax('#mainBody', 'ajax/listOfLeaderboardsToShare.php', 200);", "shareLeaderboardLink", "Share a Leaderboard", "$navbarButtonFontSize", "$navbarButtonWidth", "35"); ?>
       </div>
       <div class = 'topRight'>
-        <?= getButtonManual("../logout2.php", "logoutButton", "Logout", "15", "70", "25"); ?>
+	<span style = "font-variant: small-caps;"><?php
+	  $result = query("SELECT * FROM users WHERE id = {$_SESSION['id']}");
+	  $row = mysql_fetch_array($result);
+	  echo $row['username'];
+	?></span>
+	<?= getButtonManual("../logout2.php", "logoutButton", "Logout", "15", "70", "25"); ?>
       </div>
     </div>
   </body>
